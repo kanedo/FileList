@@ -6,16 +6,17 @@
 echo "Pfad;Datei;Groesse";
 for file in $(find $1); do
 
-	# If a file exists with a given extension...
-	if [ -e "$file" ]; then
-		if [ ! -d "$file" ]; then
-			fullPath="$(perl -e 'use Cwd "abs_path";print abs_path(shift)' $file)"
-			fileWithoutPath=$(basename $file)
-			pathWithoutFile="$(echo $fullPath | sed 's/'$fileWithoutPath'//g')"
-			filesize=$(ls -ahl $file | awk '{ print $5 }')
-			
-			echo $pathWithoutFile";"$fileWithoutPath";"$filesize
-		fi;
+	if [ -e "$file" ]; then #File exists
+		if [ ! -d "$file" ]; then #is not a directory
+			if[[ "$file" != */dev/*]]; then
+				fullPath="$(perl -e 'use Cwd "abs_path";print abs_path(shift)' $file)"
+				fileWithoutPath=$(basename $file)
+				pathWithoutFile="$(echo $fullPath | sed 's/'$fileWithoutPath'//g')"
+				filesize=$(ls -ahl $file | awk '{ print $5 }')
+				
+				echo $pathWithoutFile";"$fileWithoutPath";"$filesize
+			fi
+		fi
 	else
 		#echo "No files of type $1 found!"
 		exit 0
