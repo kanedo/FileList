@@ -3,7 +3,8 @@
 # Usage: fileParts <extension-with-no-dot> i.e. fileParts cpp
 
 # For each file with the given extension in the current directory...
-for file in $1/*; do
+echo "find $1"
+for file in $(find $1); do
 
 	# If a file exists with a given extension...
 	if [ -e "$file" ]; then
