@@ -1,0 +1,11 @@
+#FileExtension Finder
+This little script searches a given folder (at the moment the one the script is saved in) and outputs all file extensions
+
+##Usage
+First set the file to be executable
+
+	$ chmod +x ./file_extensions.sh
+Then start the Script	
+
+	$ ./file_extensions.sh
+	
