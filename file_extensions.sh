@@ -4,18 +4,17 @@
 
 # For each file with the given extension in the current directory...
 echo "Pfad;Datei;Groesse";
-for file in $(find $1); do
-
-	if [ -e "$file" ]; then #File exists
-		if [ ! -d "$file" ]; then #is not a directory
-			if[[ "$file" != */dev/*]]; then
+for file in $(find $1 -not -path */dev/*); do
+	#File exists
+	if [ -e "$file" ]; then 
+		#is not a directory
+		if [ ! -d "$file" ]; then 
 				fullPath="$(perl -e 'use Cwd "abs_path";print abs_path(shift)' $file)"
 				fileWithoutPath=$(basename $file)
 				pathWithoutFile="$(echo $fullPath | sed 's/'$fileWithoutPath'//g')"
 				filesize=$(ls -ahl $file | awk '{ print $5 }')
 				
 				echo $pathWithoutFile";"$fileWithoutPath";"$filesize
-			fi
 		fi
 	else
 		#echo "No files of type $1 found!"
